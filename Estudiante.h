@@ -4,6 +4,8 @@
 #include <iostream>
 #include <mysql.h>
 #include <string>
+#include <regex>
+#include <ctime>
 using namespace std;
 class Estudiante : Persona {
 private: string codigo;
@@ -89,7 +91,7 @@ public:
             string t = to_string(telefono);
             string id_ts = to_string(id_tipo_sangre);
             string id_e = to_string(id_estudiante);
-            string consulta = "update estudiantes set codigo = '" + codigo + "',nombres='" + nombres + "',apellidos='" + apellidos + "',direccion='" + direccion + "',telefono=" + t + ",fecha_nacimiento='" + fecha_nacimiento + "',id_tipo_sangre =" + id_ts + " where id_estudiante = " + id_e + "";
+            string consulta = "update estudiantes set codigo = '" + codigo + "',nombres='" + nombres + "',apellidos='" + apellidos + "',direccion='" + direccion + "',telefono=" + t + ",fecha_nacimiento='" + fecha_nacimiento + "',id_tipos_sangre =" + id_ts + " where id_estudiante = " + id_e + "";
             const char* c = consulta.c_str();
             q_estado = mysql_query(cn.getConector(), c);
             if (!q_estado) {
@@ -110,7 +112,7 @@ public:
         cn.abrir_conexion();
         if (cn.getConector()) {
             string t = to_string(telefono);
-            string id_ts = to_string(id_tipo_sangre);
+            int id_ts = to_int(id_tipo_sangre);
             string id_e = to_string(id_estudiante);
             string consulta = "delete from estudiantes where id_estudiante = " + id_e + "";
             const char* c = consulta.c_str();
